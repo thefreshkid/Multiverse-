@@ -22,9 +22,10 @@ class Bag{
         }
     }
 }
+module.exports = Bag //export
 // Test code
-const mandyBag = new Bag(16);
-const ucheBag = new Bag(25);
+//const mandyBag = new Bag(16);
+//const ucheBag = new Bag(25);
 
-console.log(mandyBag.isOverLimit());
-console.log(ucheBag.isOverLimit());
+//console.log(mandyBag.isOverLimit());
+//console.log(ucheBag.isOverLimit());
