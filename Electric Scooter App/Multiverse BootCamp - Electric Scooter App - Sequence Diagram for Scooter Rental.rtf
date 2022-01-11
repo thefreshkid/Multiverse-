@@ -1,0 +1,47 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 @startuml\
+\
+title "Electric Scooter APP - Sequence Diagram for Scooter Rental\
+\
+actor Customer\
+autonumber\
+Customer -> App_UI : Enter Account Details or Create Account\
+App_UI -> App_API : Verify Customer Age (NewAccount)\
+App_API-> App_Database: Verify Customer Age (NewAccount)\
+App_Database----> App_API:boolean\
+App_API----->App_UI: boolean (Y/N) \
+App_UI -> App_API: GetNearbyChargingStation\
+App_API -> App_Database: GetNearbyChargingStation\
+App_Database -> App_UI: PushNearbyChargingStation\
+Customer -> App_UI : view charge status of scooter\
+App_UI -> App_API : view charge status of scooter\
+App_API -> App_Database : view charge status of scooter\
+App_Database -----> App_API : boolean (Y/N)\
+App_API----> App_UI : boolean (Y/N)\
+Customer-> App_UI : view health status of scooter \
+App_UI-> App_API : view health status of scooter \
+App_API -> App_Database : view health status of scooter \
+App_Database ----> App_API :boolean (Y/N)\
+App_API---->App_UI : boolean (Y/N)\
+Customer ->App_UI : view max travel distance\
+App_UI-> App_API : view max travel distance\
+App_API-> App_Database : view max travel distance\
+App_Database ----> App_API : Get Max travel distance\
+App_API ---> App_UI : Get Max travel distance \
+Customer -> App_UI : Select Scooter \
+App_UI -> App_API: Assign Scooter\
+App_API -> App_Database : Assign Scooter\
+App_Database ---> App_API : Get Cost of rental \
+App_API ---> App_UI : Get cost of rental\
+Customer ->App_UI : Pay for Scooter Rental\
+App_UI -> App_API : Pay for Scooter Rental\
+App_API -> PaymentGateway : Pay for Scooter Rental\
+PaymentGateway---> App_API: boolean (Y/N)\
+App_API ---> App_UI : boolean (Y/N)\
+@endum}
