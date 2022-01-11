@@ -7,10 +7,12 @@ class Customer {
     number;
     
      
-    constructor (name,passportNumber,seatNumber){
-    super(name);// calling super in constructor methods from super parent class Traveller
+    constructor (name,age){
     this.name = name;
-    this.passportNumber =passportNumber;
-    this.seatNumber = seatNumber;
-    this.bags =[] //Empty Array 
+    this.age = age;
     }
+}
+const customer = new customer(18)
+console.log(customer.age)// 18
+
+module.exports = Customer //export
