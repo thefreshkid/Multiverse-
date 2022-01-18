@@ -1,17 +1,17 @@
 {
-  "name": "restaurant",
+  "name": "rest-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "test:report": "jest --coverage=true"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jest": "^27.4.7",
+    "express": "^4.17.2",
     "sequelize": "^6.13.0",
     "sqlite3": "^5.0.2"
   }
