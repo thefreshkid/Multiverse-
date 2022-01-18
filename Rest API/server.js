@@ -10,6 +10,8 @@ const port = 3002;
 
 //server us static content e/g web pages from the / public directory
 app.use(express.static('public'));
+//server will look at http body 
+app.use(express.json());
 
 //endpoint which returns the date when user navigates to http://localhost:3000/flipcoin
 // //app.get("/flipcoin", (request, response) => {
@@ -27,9 +29,30 @@ app.get('/restaurants', async (req, res) => {
 // start the web server listening 
 
 app.post('/restaurants', async (req, res) => {
-    // const restaurants = await Restaurant.findAll() //pushing all rows of data from restaurant database and assign it to restaurants variable
-    // req.send(restaurants)
+    const result = await Restaurant.create(
+        req.body
+    )
+    res.send(result)
+
 })
+app.put("/restaurants/:id", async (req, res) => {
+    const result = await Restaurant.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        })
+        res.send(result)
+})
+
+app.delete("/restaurants/:id",async (req, res) => {
+    const result = await Restaurant.destroy({
+        where: {
+            id: req.params.id
+        }
+    });
+    res.sendStatus(200)
+})
+
 /**
  * Synchronize all models with db
  */
