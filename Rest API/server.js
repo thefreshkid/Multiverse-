@@ -1,6 +1,9 @@
 const express = require('express'); //import dependency
 const { Restaurant } = require('./restaurant'); //import dependency
+const { Menu } = require('./menu');
+const {MenuItem} = require ('./menuItem');
 const { sequelize } = require('./sequelize_index');
+const { check, validationResult } = require('express-validator');
 
 
 //create a web server
@@ -62,6 +65,12 @@ async function start() {
         // force: true, // drop tables each time
     });
 }
+
+app.get('/menu', async (req, res) => {
+    const menu = await Menu.findAll() 
+    res.send(menu)
+})
+// start the web server listening 
 
 // run start and log any errors
 start()
