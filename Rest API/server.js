@@ -1,4 +1,7 @@
 const express = require('express'); //import dependency
+const Handlebars = require('handlebars')
+const {engine} = require('express-handlebars')
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const { Restaurant } = require('./restaurant'); //import dependency
 const { Menu } = require('./menu');
 const {MenuItem} = require ('./menuItem');
@@ -11,10 +14,34 @@ const app = express();
 //specify thr port on which the web server will run 
 const port = 3002;
 
+//setup our templating engine for handlebars 
+const handlebars = engine({
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
+})
+
+//Set Handlebars Middleware
+app.engine('handlebars', handlebars)
+app.set('view engine', 'handlebars')
+
+// support the parsing of incoming requests with urlencoded payloads (e.g. form POST)
+app.use(express.urlencoded({ extended: true }));
+// support the parsing of incoming requests with json payloads
+app.use(express.json());
+
 //server us static content e/g web pages from the / public directory
 app.use(express.static('public'));
 //server will look at http body 
 app.use(express.json());
+
+// this route returns HTML for a single restaurant
+app.get('/restaurants/:id', async (req, res) => {
+    const restaurant = await Restaurant.findByPk(req.params.id)
+    res.render('restaurant', { restaurant })
+
+    app.listen(port, () => {
+        console.log(`Server listening at http://localhost:3002`)
+    })
+})
 
 //endpoint which returns the date when user navigates to http://localhost:3000/flipcoin
 // //app.get("/flipcoin", (request, response) => {
@@ -27,7 +54,7 @@ app.use(express.json());
 // });
 app.get('/restaurants', async (req, res) => {
     const restaurants = await Restaurant.findAll() //requesting all rows of data from restaurant database and assign it to restaurants variable
-    res.send(restaurants)
+    res.render("restaurantsview",{restaurants})
 })
 // start the web server listening 
 
